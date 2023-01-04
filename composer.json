@@ -1,0 +1,19 @@
+{
+    "name": "conkal/laravel-api-mailer",
+    "description": "A package to send emails to a api server",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cengiz Önkal",
+            "email": "onkal.cengiz@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Conkal\\LaravelApiMailer\\": "src/"
+        }
+    }
+}
+
