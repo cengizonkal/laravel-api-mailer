@@ -1,6 +1,6 @@
 <?php
 
-namespace CengizOnkal\LaravelApiMailer;
+namespace Conkal\LaravelApiMailer;
 
 use Illuminate\Mail\TransportManager;
 use Illuminate\Support\Arr;
@@ -13,9 +13,9 @@ class ApiMailServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->afterResolving(TransportManager::class, function (TransportManager $transportManager) {
-            $transportManager->extend("apimail", function ($config) {
+            $transportManager->extend("mailapi", function ($config) {
                 if (! isset($config['api_key'])) {
-                    $config = $this->app['config']->get('services.apimail', []);
+                    $config = $this->app['config']->get('services.mailapi', []);
                 }
                 $client = new HttpClient(Arr::get($config, 'guzzle', []));
                 $endpoint = $config['endpoint'];

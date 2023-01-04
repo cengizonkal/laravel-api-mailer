@@ -32,7 +32,7 @@ class ApiMailTransport extends Transport
             'from' => array_keys($message->getFrom())[0],
             'to' => implode(array_keys($message->getTo()), ','),
             'subject' => $message->getSubject(),
-            'text' => $message->getBody(),
+            'body' => $message->getBody(),
         ];
 
         $payload += ['form_params' => $data];
