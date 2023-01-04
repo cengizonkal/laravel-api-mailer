@@ -31,6 +31,8 @@ class ApiMailTransport extends Transport
         $data = [
             'from' => array_keys($message->getFrom())[0],
             'to' => implode(array_keys($message->getTo()), ','),
+            'cc' => implode(array_keys($message->getCc()), ','),
+            'bcc' => implode(array_keys($message->getBcc()), ','),
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
         ];
