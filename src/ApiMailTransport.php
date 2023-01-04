@@ -26,13 +26,14 @@ class ApiMailTransport extends Transport
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
         $payload = [
-            'headers' => ['Authorization' => 'Bearer '.$this->apiKey],
+            'headers' => ['Authorization' => 'Bearer ' . $this->apiKey],
         ];
+
         $data = [
-            'from' => array_keys($message->getFrom())[0],
+            'from' => $this->getFrom($message),
             'to' => implode(array_keys($message->getTo()), ','),
-            'cc' => implode(array_keys($message->getCc()), ','),
-            'bcc' => implode(array_keys($message->getBcc()), ','),
+            'cc' => $this->getCc($message),
+            'bcc' => $this->getBcc($message),
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
         ];
@@ -41,4 +42,32 @@ class ApiMailTransport extends Transport
 
         return $this->client->post($this->endpoint, $payload);
     }
+
+    private function getFrom(Swift_Mime_Message $message)
+    {
+        $from = $message->getFrom();
+        if (is_array($from) && count($from) > 0) {
+            return array_keys($from)[0];
+        }
+        return $from;
+    }
+
+    private function getCc(Swift_Mime_Message $message)
+    {
+        $cc = $message->getCc();
+        if (is_array($cc) && count($cc) > 0) {
+            return implode(array_keys($cc), ',');
+        }
+        return $cc;
+    }
+
+    private function getBcc(Swift_Mime_Message $message)
+    {
+        $bcc = $message->getBcc();
+        if (is_array($bcc) && count($bcc) > 0) {
+            return implode(array_keys($bcc), ',');
+        }
+        return $bcc;
+    }
+
 }
