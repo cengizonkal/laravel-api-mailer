@@ -1,3 +1,11 @@
+# Laravel Api Mailer
+## Installation
+You can install the package via composer:
+```bash
+composer require conkal/laravel-api-mailer
+```
+## Configuration
+
 Add the mailapi service provider in config/app.php:
 ```php
 'providers' => [
