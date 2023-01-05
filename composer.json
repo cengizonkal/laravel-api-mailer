@@ -9,7 +9,10 @@
             "email": "onkal.cengiz@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.1.*"
+    },
     "autoload": {
         "psr-4": {
             "Conkal\\LaravelApiMailer\\": "src/"
