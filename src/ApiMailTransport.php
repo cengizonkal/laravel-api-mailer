@@ -5,14 +5,13 @@ namespace Conkal\LaravelApiMailer;
 use GuzzleHttp\ClientInterface;
 
 use Illuminate\Mail\Transport\Transport;
+use Swift_Attachment;
 use Swift_Mime_Message;
 
 class ApiMailTransport extends Transport
 {
 
     private $client;
-
-
     private $apiKey;
     private $endpoint;
 
@@ -74,13 +73,15 @@ class ApiMailTransport extends Transport
     private function getAttachments(Swift_Mime_Message $message)
     {
         $attachments = [];
-        foreach ($message->getChildren() as $child) {
-            if ($child->getContentType() == 'application/pdf') {
-                $attachments[] = [
-                    'name' => $child->getFilename(),
-                    'content' => base64_encode($child->getBody()),
-                ];
+        foreach ($message->getChildren() as $attachment) {
+            if (!$attachment instanceof Swift_Attachment) {
+                continue;
             }
+            $attachments[] = [
+                'filename' => $attachment->getFilename(),
+                'content' => $attachment->getBody(),
+                'contentType' => $attachment->getContentType(),
+            ];
         }
         return $attachments;
     }
