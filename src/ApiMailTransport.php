@@ -79,8 +79,8 @@ class ApiMailTransport extends Transport
             }
             $attachments[] = [
                 'filename' => $attachment->getFilename(),
-                'content' => $attachment->getBody(),
-                'contentType' => $attachment->getContentType(),
+                'content' => base64_encode($attachment->getBody()),
+                'content_type' => $attachment->getContentType(),
             ];
         }
         return $attachments;
