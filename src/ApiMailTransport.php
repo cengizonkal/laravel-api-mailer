@@ -36,6 +36,7 @@ class ApiMailTransport extends Transport
             'bcc' => $this->getBcc($message),
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
+            'attachments' => $this->getAttachments($message),
         ];
 
         $payload += ['form_params' => $data];
@@ -68,6 +69,20 @@ class ApiMailTransport extends Transport
             return implode(array_keys($bcc), ',');
         }
         return $bcc;
+    }
+
+    private function getAttachments(Swift_Mime_Message $message)
+    {
+        $attachments = [];
+        foreach ($message->getChildren() as $child) {
+            if ($child->getContentType() == 'application/pdf') {
+                $attachments[] = [
+                    'name' => $child->getFilename(),
+                    'content' => base64_encode($child->getBody()),
+                ];
+            }
+        }
+        return $attachments;
     }
 
 }
