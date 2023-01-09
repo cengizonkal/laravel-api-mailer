@@ -1,6 +1,6 @@
 {
     "name": "conkal/laravel-api-mailer",
-    "description": "A generic API mailer for Laravel 5.1+",
+    "description": "A generic api mail driver for Laravel 5.1+",
     "type": "library",
     "license": "MIT",
     "authors": [
