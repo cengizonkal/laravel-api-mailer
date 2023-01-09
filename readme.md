@@ -10,7 +10,7 @@ composer require conkal/laravel-api-mailer
 In your **config/app.php** file, add the following line to the providers array:
 ```php
 'providers' => [
-    Conkal\ApiMailServiceProvider::class,
+    \Conkal\LaravelApiMailer\ApiMailServiceProvider::class,
 ];
 ```
 
